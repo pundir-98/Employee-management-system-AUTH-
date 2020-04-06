@@ -31,7 +31,5 @@ spec:
         env:
           - name: host-0f-mongo1
             value: "mongo-back-service1"
-          - name: host-0f-mongo2
-            value: "mongo-back-service2"
         ports:
         - containerPort: 5000

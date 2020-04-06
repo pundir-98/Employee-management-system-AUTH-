@@ -2,6 +2,7 @@ import sys
 from flask import *
 sys.path.append('./')
 from DB_ADMIN import db
+import json
 
 
 
@@ -24,10 +25,29 @@ def login():
     
     userid = employee["userid"]
     password = employee["password"]
-    for id in collection.find({},{"_id": 0}):
-        print("crunt id ="+ id['userid'])
-        if(employee["userid"]==id['userid'] and employee["password"]==id["password"]):
-            return redirect('http://192.168.99.100:32001/hello?userid='+userid+'&password='+password,code=307)
+    role  = employee["role"]
+    operation= employee['operation']
+    if(is_exist(employee)):
+
+        if(role == "manager"):
+            
+            return redirect('http://192.168.99.100:32001/'+operation,code=307)
+        elif(role == "hr"):
+            if(operation== "create"):
+                data = json.dumps(employee['data'])
+                return redirect('http://192.168.99.100:32001/'+operation+'/'+data,code=307)
+            elif(operation == "delete"):
+                primary_key = employee['mail']
+                return redirect('http://192.168.99.100:32001/'+operation+'/'+primary_key,code=307)
+
+        elif(role == 'developer'):
+            if(operation== "create"):
+                data = json.dumps(employee['data'])
+                return redirect('http://192.168.99.100:32001/'+operation+'/'+data,code=307)
+            elif(operation == "update"):
+                primary_key = employee['mail']
+                data = employee['data']
+                return redirect('http://192.168.99.100:32001/'+operation+'/'+primary_key+'/'+json.dumps(data),code=307)    
     return jsonify({"message": "unautherized user"})
 
 

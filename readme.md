@@ -35,11 +35,6 @@ $ minikube service list
 ```
 http://192.168.99.100:32000
 ```
-> To use the crud app pod use the following url
-
-```
-http://192.168.99.100:32001
-```
 
 # API TERMINOLOGY
 
@@ -65,6 +60,31 @@ $ OUTPUT
   "message": "user added"
 }
 ```
+# FOR EMP_CREATE
+***http://192.168.99.100:32000/login***
 
+$ INPUT
+```
+{
+			"userid": "0006",
+	"password": "0006",
+	"role": "hr",
+	"operation": "create",
+	
+	
+	"data":
+		{
+			"name": "amar",
+			"mail": "amar.pundir@gslab.com",
+			"address": "pune"	
+	}
+		
+}
+```
+$ OUTPUT
 
-
+```
+{
+    "status": "sucess"
+}
+```
